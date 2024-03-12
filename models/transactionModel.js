@@ -8,7 +8,7 @@ const transactionSchema = new Schema({
     },
     transactionTitle: String,
     amount: { type: Number, required: true },
-    createdAt: { type: Date, default: Date.now() },
+    createdAt: String,
     note: String,
     transactionType: {
         type: String,
