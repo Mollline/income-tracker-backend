@@ -10,7 +10,6 @@ const createTransaction= async (req, res) => {
   }
 };
 const getTransactions = async (req, res)=>{
-
     try{
         const transactions = await transactionModel.find({});
         console.log(transactions)
@@ -19,5 +18,19 @@ const getTransactions = async (req, res)=>{
         res.status(500).send(err)
     }
 }
+const deleteTransaction = async (req, res)=>{
+  const id = req.params._id;
+  console.log(id)
 
-module.exports = {createTransaction, getTransactions}
+  try{
+    const delTransaction = await transactionModel.findByIdAndDelete(id)
+    res.status(200).send(delTransaction)
+    if(!delTransaction){
+      console.log("id not found")
+    }
+  }catch(err){
+    res.status(500).send(err)
+  }
+}
+
+module.exports = {createTransaction, getTransactions,deleteTransaction}
