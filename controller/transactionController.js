@@ -18,19 +18,19 @@ const getTransactions = async (req, res)=>{
         res.status(500).send(err)
     }
 }
-const deleteTransaction = async (req, res)=>{
+const deleteTransaction = async (req, res) => {
   const id = req.params._id;
-  console.log(id)
-
-  try{
-    const delTransaction = await transactionModel.findByIdAndDelete(id)
-    res.status(200).send(delTransaction)
-    if(!delTransaction){
-      console.log("id not found")
+  try {
+    const delTransaction = await transactionModel.findByIdAndDelete(id);
+    if (!delTransaction) {
+      return res.status(404).send("Transaction not found");
     }
-  }catch(err){
-    res.status(500).send(err)
+    res.status(200).send("transaction deleted");
+  } catch (err) {
+    console.error("Error deleting transaction:", err);
+    res.status(500).send("Internal Server Error");
   }
 }
+
 
 module.exports = {createTransaction, getTransactions,deleteTransaction}
