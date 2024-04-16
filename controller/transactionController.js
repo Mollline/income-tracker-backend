@@ -35,23 +35,26 @@ const editTransaction = async (req, res) => {
   const id = req.params._id;
   const body = req.body;
   try {
+    // Update only fields that should be editable
     const edit = await transactionModel.findByIdAndUpdate(id, {
       category: body.category,
       transactionTitle: body.transactionTitle,
       amount: body.amount,
-      createdAt: body.createdAt,
       note: body.note,
       transactionType: body.transactionType,
-    });
+    }, { new: true }); // Add { new: true } to return the updated document
+
     if (edit) {
       return res.status(200).send(edit);
     } else {
       return res.status(404).send("Transaction not found");
     }
   } catch (err) {
-    res.status(500).send(err);
+    console.error(err);
+    res.status(500).send("Internal Server Error");
   }
 };
+
 
 module.exports = {
   createTransaction,

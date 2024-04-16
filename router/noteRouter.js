@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { createNote, getNotes, deleteNote, editNote} = require("../controller/noteController");
+const { createNote, getNotes, deleteNote,editNote} = require("../controller/noteController");
 
 const noteRouter = Router();
 noteRouter.post("/createNote", createNote);
